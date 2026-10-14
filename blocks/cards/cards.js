@@ -12,7 +12,7 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  alert("cards");
+  
   // replace images with optimized versions
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
 
