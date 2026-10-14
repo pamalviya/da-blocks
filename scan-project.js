@@ -9,45 +9,44 @@ const excludeDirs = [
   '.git',
   'dist',
   'build',
-  '.cache'
+  '.cache',
 ];
 
 function scan(dir) {
   const files = fs.readdirSync(dir, { withFileTypes: true });
 
-  for (const file of files) {
+  files.forEach((file) => {
     const fullPath = path.join(dir, file.name);
 
     if (file.isDirectory()) {
       if (!excludeDirs.includes(file.name)) {
         scan(fullPath);
       }
-      continue;
-    }
+    } else {
+      const ext = path.extname(file.name);
 
-    const ext = path.extname(file.name);
+      if (
+        ['.js', '.css', '.html', '.json', '.yaml', '.yml', '.md']
+          .includes(ext)
+      ) {
+        try {
+          const content = fs.readFileSync(fullPath, 'utf8');
 
-    if (
-      ['.js', '.css', '.html', '.json', '.yaml', '.yml', '.md']
-        .includes(ext)
-    ) {
-      try {
-        const content = fs.readFileSync(fullPath, 'utf8');
-
-        output.push(
-`==================================================
+          output.push(
+            `==================================================
 FILE: ${path.relative(root, fullPath)}
 ==================================================
 
 ${content}
 
-`
-        );
-      } catch (err) {
-        console.log(`Skipped: ${fullPath}`);
+`,
+          );
+        } catch (err) {
+          console.log(`Skipped: ${fullPath}`);
+        }
       }
     }
-  }
+  });
 }
 
 scan(root);
@@ -55,7 +54,7 @@ scan(root);
 fs.writeFileSync(
   'project-dump.txt',
   output.join('\n'),
-  'utf8'
+  'utf8',
 );
 
 console.log('Dump created: project-dump.txt');

@@ -14,6 +14,9 @@ module.exports = {
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
     'linebreak-style': ['error', 'unix'],
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: ['**/tests/**'],
+    }],
     'import/extensions': ['error', {
       js: 'always',
     }],
