@@ -38,9 +38,7 @@
         "cards",
         "carousel",
         "columns",
-        "embed",
         "fragment",
-        "form",
         "hero",
         "image",
         "quote",
@@ -48,8 +46,7 @@
         "tabs",
         "table",
         "text",
-        "video",
-        "product-recommendations"
+        "video"
       ]
     }
   ]

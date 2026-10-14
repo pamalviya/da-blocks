@@ -148,15 +148,6 @@ async function renderResults(block, config, filteredData, searchTerms) {
   }
 }
 
-function renderSearchError(block, config) {
-  clearSearchResults(block);
-  const searchResults = block.querySelector('.search-results');
-  const errorMessage = document.createElement('li');
-  searchResults.classList.add('no-results');
-  errorMessage.textContent = config.placeholders.searchError || 'Search is temporarily unavailable.';
-  searchResults.append(errorMessage);
-}
-
 function compareFound(hit1, hit2) {
   return hit1.minIdx - hit2.minIdx;
 }
@@ -212,14 +203,9 @@ async function handleSearch(e, block, config) {
   }
   const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => !!term);
 
-  try {
-    const data = await fetchData(config.source);
-    if (!Array.isArray(data)) throw new Error('Search index did not return a data array');
-    const filteredData = filterData(searchTerms, data);
-    await renderResults(block, config, filteredData, searchTerms);
-  } catch (error) {
-    renderSearchError(block, config);
-  }
+  const data = await fetchData(config.source);
+  const filteredData = filterData(searchTerms, data);
+  await renderResults(block, config, filteredData, searchTerms);
 }
 
 function searchResultsContainer(block) {
