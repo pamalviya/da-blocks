@@ -6,6 +6,15 @@
       "model": "carousel",
       "filter": "carousel",
       "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Carousel",
+              "filter": "carousel"
+            }
+          }
+        },
         "da": {
           "rows": 1,
           "columns": 1
@@ -17,6 +26,15 @@
       "id": "carousel-item",
       "model": "carousel-item",
       "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Carousel Slide",
+              "model": "carousel-item"
+            }
+          }
+        },
         "da": {
           "rows": 1,
           "columns": 1,
